@@ -1,56 +1,371 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Information about Calgary's mayoral elections and governance">
-    <title>Calgary Mayor</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jordan Hale for Calgary Mayor | Fix what's broken. Build what's next.</title>
+  <meta name="description" content="Jordan Hale is a pragmatic, independent builder running for Calgary Mayor. Affordability with accountability. City Hall that works. Downtown reborn.">
+  <meta property="og:title" content="Jordan Hale for Calgary Mayor">
+  <meta property="og:description" content="Fix what's broken. Build what's next.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="">
+  <meta name="theme-color" content="#0b3d91">
+
+  <style>
+    /* ========== CSS RESET (trimmed) ========== */
+    *,*::before,*::after{box-sizing:border-box}
+    html:focus-within{scroll-behavior:smooth}
+    body{margin:0;min-height:100vh;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans',sans-serif}
+    img,svg{display:block;max-width:100%}
+    a{color:inherit}
+    /* ========== Design tokens ========== */
+    :root{
+      --bg:#0a0c10;
+      --panel:#0f1320;
+      --ink:#0b0f1a;
+      --brand:#0b3d91;        /* Calgary-sky blue */
+      --brand-2:#e63946;      /* accent red */
+      --text:#e9eef9;
+      --muted:#b6c2de;
+      --ok:#0bb37a;
+      --warn:#ffb703;
+      --shadow:0 20px 40px rgba(0,0,0,.35);
+      --radius:18px;
+    }
+    body{background:linear-gradient(180deg,#0a0c10 0%,#0b0f1a 50%,#0a0c10 100%);color:var(--text)}
+    .container{width:min(1100px,92%);margin-inline:auto}
+    /* ========== Top nav ========== */
+    header{position:sticky;top:0;z-index:50;background:rgba(10,12,16,.7);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08)}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:.8rem 0}
+    .brand{display:flex;gap:.6rem;align-items:center;font-weight:800;letter-spacing:.5px}
+    .brand svg{width:30px;height:30px}
+    .nav a{padding:.5rem .8rem;border-radius:12px;text-decoration:none;color:var(--muted)}
+    .nav a:hover{background:rgba(255,255,255,.06);color:var(--text)}
+    .cta{background:var(--brand);color:#fff!important;box-shadow:var(--shadow)}
+    .cta:hover{background:#0a2f6f}
+    /* ========== Hero ========== */
+    .hero{position:relative;padding:clamp(72px,8vw,128px) 0}
+    .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;align-items:center}
+    .badge{display:inline-flex;gap:.5rem;align-items:center;border:1px solid rgba(255,255,255,.12);padding:.35rem .6rem;border-radius:999px;color:var(--muted);font-size:.9rem}
+    .h1{font-size:clamp(2rem,4.5vw,3.6rem);line-height:1.05;margin:.6rem 0 1rem;font-weight:900}
+    .lead{font-size:clamp(1.05rem,1.6vw,1.25rem);color:var(--muted);max-width:58ch}
+    .kpis{display:flex;gap:1.2rem;flex-wrap:wrap;margin-top:1.4rem}
+    .kpi{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));padding:1rem 1.2rem;border-radius:14px;border:1px solid rgba(255,255,255,.08)}
+    .hero-card{background:radial-gradient(100% 120% at 0% 0%,rgba(11,61,145,.35),transparent 70%),linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));padding:1.2rem;border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .hero-card h3{margin:.2rem 0 .6rem}
+    /* ========== Sections ========== */
+    section{padding:64px 0}
+    .section-title{font-size:clamp(1.6rem,2.8vw,2.2rem);margin:0 0 1rem}
+    .muted{color:var(--muted)}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));padding:1.1rem 1.2rem;border-radius:var(--radius);border:1px solid rgba(255,255,255,.08)}
+    .card h3{margin:.2rem 0 .4rem}
+    .chip{display:inline-flex;gap:.45rem;align-items:center;border:1px solid rgba(255,255,255,.16);padding:.3rem .55rem;border-radius:999px;color:var(--muted);font-size:.85rem;margin:.25rem .25rem .25rem 0}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+    /* ========== Promise tracker ========== */
+    .table{width:100%;border-collapse:separate;border-spacing:0 .5rem}
+    .table th{color:var(--muted);text-align:left;font-weight:600;font-size:.9rem;padding:.25rem .5rem}
+    .row{background:linear-gradient(180deg,rgba(15,19,32,.9),rgba(15,19,32,.5));border:1px solid rgba(255,255,255,.08);border-radius:12px}
+    .row td{padding:.9rem .9rem}
+    .status{display:inline-flex;gap:.4rem;align-items:center;padding:.25rem .55rem;border-radius:999px;font-size:.85rem}
+    .ok{background:rgba(11,179,122,.12);color:#b6fde4;border:1px solid rgba(11,179,122,.35)}
+    .wip{background:rgba(255,183,3,.12);color:#fff1c2;border:1px solid rgba(255,183,3,.35)}
+    .new{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.16)}
+    /* ========== Footer ========== */
+    footer{padding:40px 0;border-top:1px solid rgba(255,255,255,.08);color:var(--muted);font-size:.95rem}
+    .footergrid{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:1.2rem}
+    /* ========== Buttons / inputs ========== */
+    .btn{display:inline-flex;gap:.6rem;align-items:center;padding:.8rem 1rem;border-radius:14px;border:1px solid rgba(255,255,255,.16);text-decoration:none}
+    .btn:hover{background:rgba(255,255,255,.06)}
+    .btn.brand{background:var(--brand);border-color:#083270;color:#fff}
+    .btn.brand:hover{background:#0a2f6f}
+    input,textarea{width:100%;background:#0b0f1a;border:1px solid rgba(255,255,255,.12);padding:.8rem 1rem;color:var(--text);border-radius:14px}
+    label{display:block;margin:.5rem 0 .25rem;color:var(--muted);font-size:.95rem}
+    .small{font-size:.9rem;color:var(--muted)}
+    /* ========== Responsive ========== */
+    @media (max-width: 960px){
+      .grid,.two{grid-template-columns:1fr}
+      .cards{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width: 640px){
+      .cards{grid-template-columns:1fr}
+      .nav .hide-sm{display:none}
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Calgary Mayor</h1>
-            <p class="tagline">Information and Resources</p>
+  <!-- ====== Header / Nav ====== -->
+  <header>
+    <div class="container nav" role="navigation" aria-label="Primary">
+      <a class="brand" href="#top" aria-label="Jordan Hale Home">
+        <svg viewBox="0 0 64 64" aria-hidden="true" role="img">
+          <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#0b3d91"/><stop offset="1" stop-color="#2a9df4"/></linearGradient></defs>
+          <path fill="url(#g)" d="M8 48 L32 8 L56 48 Z"></path>
+          <rect x="20" y="48" width="24" height="8" rx="2" fill="#e63946"></rect>
+        </svg>
+        <span>Jordan Hale</span>
+      </a>
+      <nav class="hide-sm" aria-label="In‑page">
+        <a href="#plan">Plan</a>
+        <a href="#tracker">Track My Promises</a>
+        <a href="#about">About</a>
+        <a href="#get-involved" class="cta">Get Involved</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ====== Hero ====== -->
+  <main id="top" class="hero">
+    <div class="container grid">
+      <div>
+        <div class="badge" aria-label="Independent">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" opacity=".6"/><path d="M7 12l3 3 7-7" stroke="currentColor" stroke-width="2"/></svg>
+          Independent • Builder‑Mayor
         </div>
-    </header>
+        <h1 class="h1">Fix what’s broken.<br/>Build what’s next.</h1>
+        <p class="lead">Affordable city services, faster permits, a vibrant downtown, and neighbourhoods that work for people. Jordan Hale is a civil‑engineer‑turned‑entrepreneur who’ll make City Hall run like a well‑built job site.</p>
 
-    <main class="container">
-        <section class="intro">
-            <h2>Welcome</h2>
-            <p>This website provides information about Calgary's mayoral office and municipal governance.</p>
-        </section>
-
-        <section class="info-section">
-            <h2>About the Office</h2>
-            <p>The Mayor of Calgary is the chief elected official of the city of Calgary, Alberta, Canada. The mayor is elected at-large to a four-year term and serves as the chair of Calgary City Council.</p>
-        </section>
-
-        <section class="info-section">
-            <h2>Key Responsibilities</h2>
-            <ul>
-                <li>Providing leadership and vision for the city</li>
-                <li>Chairing City Council meetings</li>
-                <li>Representing the city at official functions</li>
-                <li>Working with council to set priorities and policies</li>
-                <li>Engaging with citizens and community groups</li>
-            </ul>
-        </section>
-
-        <section class="info-section">
-            <h2>More Information</h2>
-            <p>For official information about Calgary's municipal government, please visit:</p>
-            <ul>
-                <li><a href="https://www.calgary.ca" target="_blank" rel="noopener">City of Calgary Official Website</a></li>
-                <li><a href="https://www.calgary.ca/council.html" target="_blank" rel="noopener">Calgary City Council</a></li>
-            </ul>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Calgary Mayor Information. All rights reserved.</p>
+        <div class="kpis" aria-label="Highlights">
+          <div class="kpi"><strong>90‑Day</strong><br><span class="muted">Permit Promise</span></div>
+          <div class="kpi"><strong>City Ledger</strong><br><span class="muted">Spending Dashboard</span></div>
+          <div class="kpi"><strong>Downtown</strong><br><span class="muted">Residential Conversions</span></div>
         </div>
-    </footer>
+
+        <div style="margin-top:1.2rem;display:flex;gap:.8rem;flex-wrap:wrap">
+          <a class="btn brand" href="#plan"><span>See the Plan</span></a>
+          <a class="btn" href="#get-involved"><span>Volunteer / Talk to Jordan</span></a>
+        </div>
+      </div>
+
+      <aside class="hero-card" aria-label="Upcoming">
+        <h3>Upcoming</h3>
+        <p class="muted">Meet‑and‑greet at Sunnyside C‑Train — Friday 5:30pm. Coffee with Jordan at University District — Sunday 10am.</p>
+        <hr style="border:none;border-top:1px solid rgba(255,255,255,.1);margin:.8rem 0">
+        <h3>Rapid Wins (First 100 Days)</h3>
+        <ul>
+          <li>Launch <strong>City Ledger</strong>—a live spending dashboard.</li>
+          <li>Cut simple business licenses to <strong>48 hours</strong>.</li>
+          <li>Publish a transparent <strong>snow route priority</strong> map.</li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+
+  <!-- ====== Plan ====== -->
+  <section id="plan">
+    <div class="container">
+      <h2 class="section-title">The Plan</h2>
+      <p class="muted">A pragmatic platform focused on results you can see. No drama, just delivery.</p>
+
+      <div class="cards" role="list">
+        <article class="card" role="listitem">
+          <h3>Affordability with Accountability</h3>
+          <p>Freeze property‑tax rates for one year and open the books via the <em>City Ledger</em>. Every dollar, every project—searchable and shareable.</p>
+          <div>
+            <span class="chip">Open Data</span><span class="chip">Zero‑Based Review</span><span class="chip">Value‑for‑Money</span>
+          </div>
+        </article>
+
+        <article class="card" role="listitem">
+          <h3>City Hall that Works</h3>
+          <p>Unify permits and inspections on a single portal. <strong>90‑day permit promise</strong> with automatic escalation if timelines slip.</p>
+          <div>
+            <span class="chip">Digital Permits</span><span class="chip">Service‑Level Targets</span><span class="chip">Public KPIs</span>
+          </div>
+        </article>
+
+        <article class="card" role="listitem">
+          <h3>Downtown Reborn</h3>
+          <p>Kickstart office‑to‑residential conversions, support street‑level retail, and invest the savings from red‑tape cuts into safety and transit.</p>
+          <div>
+            <span class="chip">Conversions</span><span class="chip">Vibrant Streets</span><span class="chip">Night Economy</span>
+          </div>
+        </article>
+      </div>
+
+      <div class="two" style="margin-top:1.2rem">
+        <article class="card">
+          <h3>Smart Growth, Strong Communities</h3>
+          <p>Gentle density near transit, protect heritage corridors, and use data modeling to plan services <em>before</em> shovels hit dirt.</p>
+          <div>
+            <span class="chip">Transit‑Oriented</span><span class="chip">Gentle Density</span><span class="chip">Service Forecasting</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Energy + Innovation Together</h3>
+          <p>Make Calgary the transition capital: support energy innovation, AI, and construction tech—without abandoning the industries that built us.</p>
+          <div>
+            <span class="chip">Innovation Hub</span><span class="chip">Trades + Tech</span><span class="chip">University Partnerships</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Promise Tracker ====== -->
+  <section id="tracker" aria-labelledby="tracker-heading">
+    <div class="container">
+      <h2 id="tracker-heading" class="section-title">Track My Promises</h2>
+      <p class="muted">A living scoreboard. When promises turn into projects, you’ll see it here. This static demo shows the idea you can host on GitHub Pages.</p>
+
+      <table class="table" role="table" aria-describedby="tracker-heading">
+        <thead>
+          <tr>
+            <th scope="col">Promise</th>
+            <th scope="col">Category</th>
+            <th scope="col">Status</th>
+            <th scope="col">Notes</th>
+          </tr>
+        </thead>
+        <tbody id="promise-body">
+          <!-- rows injected by JS -->
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ====== About ====== -->
+  <section id="about">
+    <div class="container two">
+      <div>
+        <h2 class="section-title">Meet Jordan</h2>
+        <p class="muted">Civil engineer → tech founder → community volunteer. Jordan grew up in Calgary (child of a welder and a nurse), studied engineering at the U of C, built municipal projects from water systems to LRT upgrades, then co‑founded a startup that modernized permitting software. He sold the company and now helps design affordable housing. He lives in Hillhurst with two kids who commandeer his toolbox.</p>
+        <p class="muted">Leadership style: pragmatic empathy, clear targets, public dashboards. If it can’t be measured, it probably can’t be managed.</p>
+      </div>
+      <aside class="card">
+        <h3>Endorsements (sample)</h3>
+        <ul>
+          <li>Local small‑business owners who want faster, predictable permits.</li>
+          <li>Trades & tech workers who want the city to run like a modern shop.</li>
+          <li>Community leaders who want safe streets and lively main streets.</li>
+        </ul>
+        <p class="small">Note: This is a demo site for a fictional candidate.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ====== Get Involved ====== -->
+  <section id="get-involved">
+    <div class="container two">
+      <div>
+        <h2 class="section-title">Get Involved</h2>
+        <p class="muted">This is a static site you can host on GitHub Pages. Use the form to generate an email, or wire it to a service like Formspree/Netlify later.</p>
+        <form onsubmit="mailtoFallback(event)" aria-label="Volunteer form">
+          <label for="name">Name</label>
+          <input id="name" name="name" required placeholder="Your name" />
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required placeholder="you@example.com" />
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" placeholder="How would you like to help?"></textarea>
+          <div style="display:flex;gap:.6rem;margin-top:.8rem;flex-wrap:wrap">
+            <button class="btn brand" type="submit">Send</button>
+            <a class="btn" href="#top">Back to top</a>
+          </div>
+          <p id="form-note" class="small" aria-live="polite" style="margin-top:.5rem"></p>
+        </form>
+      </div>
+      <aside class="card">
+        <h3>Campaign Kit</h3>
+        <ul>
+          <li><a class="btn" href="#" onclick="downloadAsset('jordan-logo.svg', sampleLogo)" role="button">Download Logo (SVG)</a></li>
+          <li><a class="btn" href="#" onclick="downloadAsset('one-pager.txt', onePager)" role="button">Download One‑Pager</a></li>
+          <li><a class="btn" href="#" onclick="downloadAsset('press-photo-placeholder.svg', pressPhoto)" role="button">Press Photo Placeholder</a></li>
+        </ul>
+        <p class="small">Assets are generated locally via JavaScript—no external dependencies.</p>
+      </aside>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footergrid">
+      <div>
+        <strong>Paid for by Friends of Jordan Hale</strong>
+        <p class="small">This is a fictional demo built for a portfolio/concept. Host it as‑is on GitHub Pages, or fork and customize.</p>
+      </div>
+      <div>
+        <div class="small">Contact</div>
+        <a class="btn" href="mailto:hello@jordanhale.ca">hello@jordanhale.ca</a>
+      </div>
+      <div>
+        <div class="small">Social (placeholders)</div>
+        <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.4rem">
+          <a class="btn" href="#" aria-label="X/Twitter">X</a>
+          <a class="btn" href="#" aria-label="Instagram">Instagram</a>
+          <a class="btn" href="#" aria-label="LinkedIn">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ===== Promise tracker demo data (static) =====
+    const promises = [
+      {title:"Launch City Ledger (spending dashboard)", cat:"Accountability", status:"ok", notes:"Open‑data APIs; monthly roll‑ups; CSV export."},
+      {title:"90‑Day Permit Promise", cat:"City Hall", status:"wip", notes:"Fast‑track categories defined; escalation paths set."},
+      {title:"Office‑to‑Residential Conversion Incentives", cat:"Downtown", status:"wip", notes:"Pilot with two towers; report Q2."},
+      {title:"Snow Route Priority Map", cat:"Services", status:"ok", notes:"Map live; SMS & email alerts integrated."},
+      {title:"Gentle Density Near Transit", cat:"Planning", status:"new", notes:"Community consultations scheduled."},
+    ];
+
+    const tbody = document.getElementById('promise-body');
+    promises.forEach(p => {
+      const tr = document.createElement('tr');
+      tr.className='row';
+      tr.innerHTML = `
+        <td>${p.title}</td>
+        <td><span class="chip">${p.cat}</span></td>
+        <td><span class="status ${p.status}">${p.status === 'ok' ? 'Delivered' : p.status === 'wip' ? 'In Progress' : 'Planned'}</span></td>
+        <td>${p.notes}</td>`;
+      tbody.appendChild(tr);
+    });
+
+    // ===== Simple form mailto fallback for static hosting =====
+    function mailtoFallback(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const msg = document.getElementById('message').value.trim();
+      const subject = encodeURIComponent("Volunteer: " + name);
+      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${msg}`);
+      document.getElementById('form-note').textContent = "Opening your email client…";
+      window.location.href = `mailto:hello@jordanhale.ca?subject=${subject}&body=${body}`;
+    }
+
+    // ===== Lightweight downloadable assets (generated on the fly) =====
+    function downloadAsset(filename, data){
+      const blob = new Blob([data], {type: 'text/plain'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = filename; a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    const sampleLogo = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'>
+      <defs><linearGradient id='g' x1='0' x2='1'><stop offset='0' stop-color='#0b3d91'/><stop offset='1' stop-color='#2a9df4'/></linearGradient></defs>
+      <rect width='64' height='64' fill='#0a0c10'/>
+      <path fill='url(#g)' d='M8 48 L32 8 L56 48 Z'/>
+      <rect x='20' y='48' width='24' height='8' rx='2' fill='#e63946'/>
+    </svg>`;
+
+    const onePager = `JORDAN HALE — CALGARY MAYOR (Demo)
+Tagline: Fix what's broken. Build what's next.
+Pillars: Affordability with accountability • City Hall that works • Downtown reborn • Smart growth • Energy + innovation together
+First 100 days: Launch City Ledger • 90-day permit promise • Snow route priority map
+Contact: hello@jordanhale.ca (demo)`;
+
+    const pressPhoto = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 533'>
+      <defs><linearGradient id='bg' x1='0' x2='1'><stop offset='0' stop-color='#0b3d91'/><stop offset='1' stop-color='#0a0c10'/></linearGradient></defs>
+      <rect width='800' height='533' fill='url(#bg)'/>
+      <g fill='#e9eef9' opacity='.9'>
+        <circle cx='140' cy='266' r='96'/>
+        <rect x='80' y='360' width='120' height='24' rx='12'/>
+        <rect x='240' y='200' width='440' height='28' rx='6'/>
+        <rect x='240' y='242' width='380' height='22' rx='6'/>
+        <rect x='240' y='276' width='320' height='22' rx='6'/>
+      </g>
+      <text x='240' y='330' fill='#fff' font-family='Arial, Helvetica, sans-serif' font-size='20'>Press Photo Placeholder — Jordan Hale (Demo)</text>
+    </svg>`;
+  </script>
 </body>
 </html>
